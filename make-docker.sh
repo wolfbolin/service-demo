@@ -12,6 +12,7 @@ echo -e "\033[5;36mOrz 镜像重建完成\033[0m"
 docker run -itd \
 	--restart unless-stopped \
 	--name ${docker_name} \
+	-e SERVICE_ENV=production \
 	-v $(pwd):/var/app \
 	-p 12899:80 \
 	${docker_name}:"${time_now}"

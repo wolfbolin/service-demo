@@ -11,7 +11,6 @@ from Config import get_config
 from dbutils.pooled_db import PooledDB
 from sentry_sdk.integrations.flask import FlaskIntegration
 
-
 # 获取配置
 app_config = get_config()
 base_path = os.path.split(os.path.abspath(__file__))[0]
@@ -44,6 +43,7 @@ app.mysql_pool = PooledDB(creator=pymysql, **mysql_config, **pool_config)
 
 # 初始化路由
 from Demo import demo_blue
+
 app.register_blueprint(demo_blue, url_prefix='/demo')
 CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
 
@@ -51,6 +51,11 @@ CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
 @app.route('/')
 def hello_world():
     return Kit.common_rsp("Hello, world!")
+
+
+@app.route('/generate_204')
+def network_test():
+    return str("success"), 204
 
 
 @app.route('/debug/sentry')
