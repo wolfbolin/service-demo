@@ -45,7 +45,7 @@ app.mysql_pool = PooledDB(creator=pymysql, **mysql_config, **pool_config)
 from Demo import demo_blue
 
 app.register_blueprint(demo_blue, url_prefix='/demo')
-CORS(app, supports_credentials=True, resources={r"/*": {"origins": "*"}})
+CORS(app, supports_credentials=True, resources={r"/*": {"origins": app_config["BASE"]["cors_host"].split(",")}})
 
 
 @app.route('/')
